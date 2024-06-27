@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>М'ячик</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: green; /* Зелений фон */
+        }
+        #ball {
+            width: 100px;
+            height: 100px;
+            background: orange; /* Помаранчевий колір */
+            border-radius: 50%;
+            position: relative;
+            cursor: pointer;
+        }
+        #ball::before, #ball::after {
+            content: '';
+            position: absolute;
+            border-radius: 50%;
+            background-color: black;
+        }
+        #ball::before {
+            width: 5px; /* Ширина чорних смужок поперек */
+            height: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        #ball::after {
+            width: 100%;
+            height: 5px; /* Висота чорних смужок поперек */
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        .stripe {
+            position: absolute;
+            background-color: black;
+            border-radius: 50%;
+        }
+        .stripe.horizontal {
+            width: 100px;
+            height: 5px; /* Висота чорної смужки по горизонталі */
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        #counter {
+            margin-top: 20px;
+            font-size: 20px;
+            color: white; /* Колір тексту лічильника */
+        }
+        #message {
+            color: white; /* Колір тексту повідомлення */
+        }
+    </style>
+</head>
+<body>
+    <div id="ball">
+        <div class="stripe.horizontal"></div>
+    </div>
+    <div id="counter">Кількість натискань: 0</div>
+    <div id="message">Ти можеш краще синку!</div>
+
+    <script>
+        let ball = document.getElementById('ball');
+        let counter = document.getElementById('counter');
+        let message = document.getElementById('message');
+        let clicks = 0;
+
+        ball.addEventListener('click', function() {
+            clicks++;
+            counter.textContent = `Кількість натискань: ${clicks}`;
+            if (clicks <= 10) {
+                message.textContent = 'Ти можеш краще синку!';
+            } else {
+                message.textContent = 'Оце так! Пишаюся тобою синку!';
+            }
+            ball.style.top = '-20px';
+            setTimeout(() => {
+                ball.style.top = '0px';
+            }, 100);
+        });
+    </script>
+</body>
+</html>
